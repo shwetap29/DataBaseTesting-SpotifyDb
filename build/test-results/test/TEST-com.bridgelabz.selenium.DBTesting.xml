@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.bridgelabz.selenium.DBTesting" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-08-02T06:52:22" hostname="DESKTOP-5DOOE2D" time="0.128">
+  <properties/>
+  <testcase name="insert_table_data" classname="com.bridgelabz.selenium.DBTesting" time="0.128"/>
+  <system-out><![CDATA[connecting to jdbcjdbc:mysql://localhost:3306/spotifydb?useSSL=false
+connection is successful:com.mysql.cj.jdbc.ConnectionImpl@68c7dddd
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
