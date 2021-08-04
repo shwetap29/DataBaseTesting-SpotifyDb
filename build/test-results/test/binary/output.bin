@@ -1,2 +1,22 @@
 Fconnecting to jdbcjdbc:mysql://localhost:3306/spotifydb?useSSL=false
-Dconnection is successful:com.mysql.cj.jdbc.ConnectionImpl@25189594
+Dconnection is successful:com.mysql.cj.jdbc.ConnectionImpl@620c8ed9
+Fconnecting to jdbcjdbc:mysql://localhost:3306/spotifydb?useSSL=false
+Dconnection is successful:com.mysql.cj.jdbc.ConnectionImpl@6759827d
+)/****************Records**************/
+#3 Shweta shwetaprasad48@gmail.com
+!4 Anusha anushaverma8@gmail.com
+5 shakti shaktib47@gmail.com
+ 6 Seema seemaprasad7@gmail.com
+#7 Rakesh rakeshprasad55@gmail.com
+Fconnecting to jdbcjdbc:mysql://localhost:3306/spotifydb?useSSL=false
+Dconnection is successful:com.mysql.cj.jdbc.ConnectionImpl@360fee0f
+)/****************Records**************/
+#3 Shweta shwetaprasad48@gmail.com
+!4 Anusha anushaverma8@gmail.com
+5 shakti shaktib47@gmail.com
+ 6 Seema seemaprasad7@gmail.com
+#7 Rakesh rakeshprasad55@gmail.com
+Fconnecting to jdbcjdbc:mysql://localhost:3306/spotifydb?useSSL=false
+Dconnection is successful:com.mysql.cj.jdbc.ConnectionImpl@54bac4ff
+Fconnecting to jdbcjdbc:mysql://localhost:3306/spotifydb?useSSL=false
+Dconnection is successful:com.mysql.cj.jdbc.ConnectionImpl@55b1b8c6

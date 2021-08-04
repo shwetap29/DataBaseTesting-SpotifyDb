@@ -1,14 +1,14 @@
 package com.bridgelabz.selenium;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
-public class DBTesting  extends Base {
-    private int count;
+public class DBTesting extends Base {
+    private static Connection con;
+    static Connection connection = null;
+    private static Statement statement;
 
     @Test
     public void get_table_data() throws ClassNotFoundException, SQLException {
@@ -22,7 +22,7 @@ public class DBTesting  extends Base {
             String name = rs.getString(2);
             String emailid = rs.getString(3);
             System.out.println(id + " " + name + " " + emailid);
-            count++;
+
         }
     }
 
@@ -30,16 +30,17 @@ public class DBTesting  extends Base {
     public void insert_table_data() throws ClassNotFoundException, SQLException {
         con = this.getConnection();
         PreparedStatement pst = con.prepareStatement("insert into user VALUES(?,?,?)");
-        pst.setInt(1, 7);
-        pst.setString(2, "Rakesh");
-        pst.setString(3, "rakeshprasad55@gmail.com");
+        pst.setInt(1, 8);
+        pst.setString(2, "Mahima");
+        pst.setString(3, "mahima2@gmail.com");
         pst.executeUpdate();
     }
     @Test
     public void update_values_into_table() throws ClassNotFoundException, SQLException {
         con = this.getConnection();
         PreparedStatement pst = con.prepareStatement("UPDATE tracks SET playlist=? WHERE track=?");
-                pst.setString(1,"Fusion");
+                pst.setString(1,"track");
+                pst.setString(2,"Fusion");
                 pst.executeUpdate();
 
     }
@@ -53,13 +54,11 @@ public class DBTesting  extends Base {
         get_table_data();
     }
 
-    @Test
-    public void order_by_playlistName() throws ClassNotFoundException, SQLException {
-        con = this.getConnection();
-        PreparedStatement pst=con.prepareStatement("SELECT * FROM playlist ORDER BY playlistName");
-        pst.setInt(1,6);
-        pst.setString(2,"Bollywood");
-        pst.executeUpdate();
+    @AfterTest                   //Close Connection
+    public void tearDown() throws Exception {
+        if (connection != null) {
+            connection.close();
+        }
     }
 }
 
