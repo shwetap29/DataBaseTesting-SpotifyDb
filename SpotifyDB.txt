@@ -1,0 +1,315 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| address_book       |
+| classroom          |
+| information_schema |
+| mysql              |
+| payroll_service    |
+| performance_schema |
+| sakila             |
+| school             |
+| spotifyapp         |
+| spotifydb          |
+| student            |
+| sys                |
+| world              |
++--------------------+
+13 rows in set (0.00 sec)
+
+mysql> use spotifyapp;
+Database changed
+
+mysql> CREATE TABLE User
+    -> (
+    -> user_id int(10),
+    -> user_name varchar(30),
+    -> user_email varchar(30),
+    -> user_password varchar(30),
+    -> PRIMARY KEY(user_id)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.13 sec)
+
+mysql> desc User;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| user_id       | int         | NO   | PRI | NULL    |       |
+| user_name     | varchar(30) | YES  |     | NULL    |       |
+| user_email    | varchar(30) | YES  |     | NULL    |       |
+| user_password | varchar(30) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+mysql> INSERT INTO User(user_id, user_name, user_email, user_password)
+    -> VALUES(1, 'Shakti', 'shakti74@gmail.com', '123456'),
+    -> (2, 'Shweta', 'shwetap48@gmail.com', '456123');
+Query OK, 2 rows affected (0.05 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from User;
++---------+-----------+---------------------+---------------+
+| user_id | user_name | user_email          | user_password |
++---------+-----------+---------------------+---------------+
+|       1 | Shakti    | shakti74@gmail.com  | 123456        |
+|       2 | Shweta    | shwetap48@gmail.com | 456123        |
++---------+-----------+---------------------+---------------+
+2 rows in set (0.00 sec)
+
+
+mysql> INSERT INTO User(user_id, user_name, user_email, user_password)
+    -> VALUES(3, 'Anusha', 'anushav@gmail.com', '789456'),
+    -> (4, 'Sara', 'sara55@gmail.com', '321654');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from User;
++---------+-----------+---------------------+---------------+
+| user_id | user_name | user_email          | user_password |
++---------+-----------+---------------------+---------------+
+|       1 | Shakti    | shakti74@gmail.com  | 123456        |
+|       2 | Shweta    | shwetap48@gmail.com | 456123        |
+|       3 | Anusha    | anushav@gmail.com   | 789456        |
+|       4 | Sara      | sara55@gmail.com    | 321654        |
++---------+-----------+---------------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE playlist
+    -> (playlist_id int(30) PRIMARY KEY,
+    -> playlist_name varchar(30),
+    -> user_id int,
+    -> CONSTRAINT FK_user_id FOREIGN KEY(user_id)
+    -> REFERENCES User(user_id)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.11 sec)
+
+mysql> desc playlist;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| playlist_id   | int         | NO   | PRI | NULL    |       |
+| playlist_name | varchar(30) | YES  |     | NULL    |       |
+| user_id       | int         | YES  | MUL | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+
+mysql> INSERT INTO playlist VALUES(12345, 'BollywoodHits', 1),
+    -> (12346, 'Remix', 2),
+    -> (12347, 'Travelling', 3),
+    -> (12348, 'English', 4);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from playlist;
++-------------+---------------+---------+
+| playlist_id | playlist_name | user_id |
++-------------+---------------+---------+
+|       12345 | BollywoodHits |       1 |
+|       12346 | Remix         |       2 |
+|       12347 | Travelling    |       3 |
+|       12348 | English       |       4 |
++-------------+---------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE track
+    -> (
+    -> track_id int(30),
+    -> track_name varchar(30),
+    -> PRIMARY KEY (track_id),
+    -> playlist_id int,
+    -> CONSTRAINT FK_playlist_id FOREIGN KEY(playlist_id)
+    -> REFERENCES playlist(playlist_id)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.07 sec)
+
+mysql> select * from track;
+Empty set (0.01 sec)
+
+mysql> INSERT INTO track(track_id, track_name, playlist_id)
+    -> VALUES(1000, 'DuaLipa', 12345),
+    -> (1002, 'Panipani', 12346),
+    -> (1003, 'Dil chahta Hai', 12347),
+    -> (1004, 'Levitating', 12348);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from track;
++----------+----------------+-------------+
+| track_id | track_name     | playlist_id |
++----------+----------------+-------------+
+|     1000 | DuaLipa        |       12345 |
+|     1002 | Panipani       |       12346 |
+|     1003 | Dil chahta Hai |       12347 |
+|     1004 | Levitating     |       12348 |
++----------+----------------+-------------+
+4 rows in set (0.00 sec)
+
+
+mysql> INSERT INTO User(user_id, user_name, user_email, user_password)
+    -> VALUES(101, 'Happy', 'happy@gmail.com', 'H1234'),
+    -> (12345, 'Seema', 'Seema@gmail.com', 'See12'),
+    -> (12347, 'Apoorv', 'apoorv22@gmail.com', 'a4567');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM User;
++---------+-----------+---------------------+---------------+
+| user_id | user_name | user_email          | user_password |
++---------+-----------+---------------------+---------------+
+|       1 | Shakti    | shakti74@gmail.com  | 123456        |
+|       2 | Shweta    | shwetap48@gmail.com | 456123        |
+|       3 | Anusha    | anushav@gmail.com   | 789456        |
+|       4 | Sara      | sara55@gmail.com    | 321654        |
+|     101 | Happy     | happy@gmail.com     | H1234         |
+|   12345 | Seema     | Seema@gmail.com     | See12         |
+|   12347 | Apoorv    | apoorv22@gmail.com  | a4567         |
++---------+-----------+---------------------+---------------+
+7 rows in set (0.00 sec)
+
+
+
+
+*************QUERIES***********************
+
+
+mysql> SELECT * FROM user
+    -> WHERE user_id IN(SELECT user_id FROM playlist WHERE playlist_name = 'Travelling');
++---------+-----------+-------------------+---------------+
+| user_id | user_name | user_email        | user_password |
++---------+-----------+-------------------+---------------+
+|       3 | Anusha    | anushav@gmail.com | 789456        |
++---------+-----------+-------------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT user_name FROM user
+    -> WHERE user_id IN (SELECT user_id FROM playlist WHERE playlist_name = 'English');
++-----------+
+| user_name |
++-----------+
+| Sara      |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM playlist
+    -> WHERE playlist_id IN (SELECT playlist_id FROM playlist WHERE playlist_name = 'BollywoodHits');
++-------------+---------------+---------+
+| playlist_id | playlist_name | user_id |
++-------------+---------------+---------+
+|       12345 | BollywoodHits |       1 |
++-------------+---------------+---------+
+1 row in set (0.00 sec)
+
+
+****************** ********JOINS********************************
+
+#INNER JOIN
+mysql> SELECT track.track_name FROM track
+    -> INNER JOIN playlist
+    -> ON playlist.playlist_id = track.playlist_id;
++----------------+
+| track_name     |
++----------------+
+| DuaLipa        |
+| Panipani       |
+| Dil chahta Hai |
+| Levitating     |
++----------------+
+4 rows in set (0.00 sec)
+
+
+#  INNER JOIN 
+
+mysql> SELECT track.track_name,user.user_id
+    -> FROM ((track INNER JOIN playlist ON playlist.playlist_id
+    -> =track.playlist_id)
+    -> INNER JOIN user ON user.user_id = playlist.user_id);
++----------------+---------+
+| track_name     | user_id |
++----------------+---------+
+| DuaLipa        |       1 |
+| Panipani       |       2 |
+| Dil chahta Hai |       3 |
+| Levitating     |       4 |
++----------------+---------+
+4 rows in set (0.00 sec)
+
+*******************JOIN*****************
+
+mysql> select * from playlist
+    -> join user on User.user_id=playlist.playlist_id;
++-------------+---------------+---------+---------+-----------+--------------------+---------------+
+| playlist_id | playlist_name | user_id | user_id | user_name | user_email         | user_password |
++-------------+---------------+---------+---------+-----------+--------------------+---------------+
+|       12345 | BollywoodHits |       1 |   12345 | Seema     | Seema@gmail.com    | See12         |
+|       12347 | Travelling    |       3 |   12347 | Apoorv    | apoorv22@gmail.com | a4567         |
++-------------+---------------+---------+---------+-----------+--------------------+---------------+
+
+
+****************************RIGHT JOIN********************************
+
+mysql> select * from User;
++---------+-----------+---------------------+---------------+
+| user_id | user_name | user_email          | user_password |
++---------+-----------+---------------------+---------------+
+|       1 | Shakti    | shakti74@gmail.com  | 123456        |
+|       2 | Shweta    | shwetap48@gmail.com | 456123        |
+|       3 | Anusha    | anushav@gmail.com   | 789456        |
+|       4 | Sara      | sara55@gmail.com    | 321654        |
+|     101 | Happy     | happy@gmail.com     | H1234         |
+|   12345 | Seema     | Seema@gmail.com     | See12         |
+|   12347 | Apoorv    | apoorv22@gmail.com  | a4567         |
+|   12348 | Rohan     | rohan11@gmail.com   | ROH1          |
++---------+-----------+---------------------+---------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from playlist
+    -> right join user on user.user_id=playlist.playlist_id;
++-------------+---------------+---------+---------+-----------+---------------------+---------------+
+| playlist_id | playlist_name | user_id | user_id | user_name | user_email          | user_password |
++-------------+---------------+---------+---------+-----------+---------------------+---------------+
+|        NULL | NULL          |    NULL |       1 | Shakti    | shakti74@gmail.com  | 123456        |
+|        NULL | NULL          |    NULL |       2 | Shweta    | shwetap48@gmail.com | 456123        |
+|        NULL | NULL          |    NULL |       3 | Anusha    | anushav@gmail.com   | 789456        |
+|        NULL | NULL          |    NULL |       4 | Sara      | sara55@gmail.com    | 321654        |
+|        NULL | NULL          |    NULL |     101 | Happy     | happy@gmail.com     | H1234         |
+|       12345 | BollywoodHits |       1 |   12345 | Seema     | Seema@gmail.com     | See12         |
+|       12347 | Travelling    |       3 |   12347 | Apoorv    | apoorv22@gmail.com  | a4567         |
+|       12348 | English       |       4 |   12348 | Rohan     | rohan11@gmail.com   | ROH1          |
++-------------+---------------+---------+---------+-----------+---------------------+---------------+
+8 rows in set (0.00 sec)
+
+
+*********************LEFT JOIN**************************************
+
+mysql> select * from playlist
+    -> left join user on user.user_id = playlist.playlist_id;
++-------------+---------------+---------+---------+-----------+--------------------+---------------+
+| playlist_id | playlist_name | user_id | user_id | user_name | user_email         | user_password |
++-------------+---------------+---------+---------+-----------+--------------------+---------------+
+|       12345 | BollywoodHits |       1 |   12345 | Seema     | Seema@gmail.com    | See12         |
+|       12346 | Remix         |       2 |    NULL | NULL      | NULL               | NULL          |
+|       12347 | Travelling    |       3 |   12347 | Apoorv    | apoorv22@gmail.com | a4567         |
+|       12348 | English       |       4 |   12348 | Rohan     | rohan11@gmail.com  | ROH1          |
++-------------+---------------+---------+---------+-----------+--------------------+---------------+
+4 rows in set (0.00 sec)
+
+
+mysql> select * from User
+    -> left join playlist on playlist.playlist_id = User.User_id;
++---------+-----------+---------------------+---------------+-------------+---------------+---------+
+| user_id | user_name | user_email          | user_password | playlist_id | playlist_name | user_id |
++---------+-----------+---------------------+---------------+-------------+---------------+---------+
+|       1 | Shakti    | shakti74@gmail.com  | 123456        |        NULL | NULL          |    NULL |
+|       2 | Shweta    | shwetap48@gmail.com | 456123        |        NULL | NULL          |    NULL |
+|       3 | Anusha    | anushav@gmail.com   | 789456        |        NULL | NULL          |    NULL |
+|       4 | Sara      | sara55@gmail.com    | 321654        |        NULL | NULL          |    NULL |
+|     101 | Happy     | happy@gmail.com     | H1234         |        NULL | NULL          |    NULL |
+|   12345 | Seema     | Seema@gmail.com     | See12         |       12345 | BollywoodHits |       1 |
+|   12347 | Apoorv    | apoorv22@gmail.com  | a4567         |       12347 | Travelling    |       3 |
+|   12348 | Rohan     | rohan11@gmail.com   | ROH1          |       12348 | English       |       4 |
++---------+-----------+---------------------+---------------+-------------+---------------+---------+
+8 rows in set (0.00 sec)
+
+
